@@ -1,0 +1,31 @@
+WEBVTT
+
+00:00.000 --> 00:07.940
+To set up the SIM card, right-click then left-click the square, and close all open tabs.
+
+00:07.940 --> 00:14.500
+Click Settings, then "Network & Internet", and then "Mobile network".
+
+00:14.500 --> 00:22.500
+Enable the "Home" carrier option and click OK to activate. Then open "Advanced".
+
+00:22.500 --> 00:26.900
+Go to "Access Point Names" (APN).
+
+00:26.900 --> 00:36.560
+Tap "+" to create a new APN. In the "Name" field, enter the following tag:
+
+00:36.560 --> 00:54.900
+ipv4.br — copy this value and paste it also in the "APN" field right below.
+
+00:54.900 --> 01:01.000
+After that, tap the three dots in the top right corner and select "Save".
+
+01:01.000 --> 01:09.300
+Activate the APN (check the circle) and reopen the rental app.
+
+01:09.300 --> 01:15.540
+Look at the top-right corner: the "LTE" label will appear, meaning the SIM was recognized.
+
+01:15.540 --> 01:23.140
+Done! Remove the mouse and the station is online using the SIM card.

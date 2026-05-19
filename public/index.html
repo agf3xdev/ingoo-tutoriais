@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a1f44" />
+  <title>Ingoo · Tutoriais para Comerciantes</title>
+  <meta name="description" content="Aprenda a operar sua máquina Ingoo: WiFi, chip, status online/offline, aluguel no cartão e retirada via PIX." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a1f44'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Inter,sans-serif' font-size='34' font-weight='800' fill='%23ffd84d'%3Ei%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand">
+        <span class="brand-mark">i</span>
+        <span class="brand-name">Ingoo <em data-i18n="brand_sub">Tutoriais</em></span>
+      </a>
+      <nav class="lang-switcher" aria-label="Idioma">
+        <button class="lang-btn" data-lang="pt" aria-pressed="true">
+          <span class="flag">🇧🇷</span><span>PT</span>
+        </button>
+        <button class="lang-btn" data-lang="en" aria-pressed="false">
+          <span class="flag">🇺🇸</span><span>EN</span>
+        </button>
+        <button class="lang-btn" data-lang="es" aria-pressed="false">
+          <span class="flag">🇪🇸</span><span>ES</span>
+        </button>
+        <button class="lang-btn" data-lang="zh" aria-pressed="false">
+          <span class="flag">🇨🇳</span><span>中文</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow" data-i18n="hero_eyebrow">Central de ajuda</span>
+        <h1 data-i18n="hero_title">Tutoriais para Comerciantes Ingoo</h1>
+        <p class="hero-sub" data-i18n="hero_sub">
+          Vídeos curtos e diretos para você operar sua máquina de power bank com confiança.
+          Legendas disponíveis em 4 idiomas.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid-section">
+      <div class="container">
+        <div class="tutorials-grid" id="tutorialsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content">
+      <button class="modal-close" data-close aria-label="Close">×</button>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <video id="modalVideo" controls preload="metadata" crossorigin="anonymous" playsinline></video>
+      <p class="modal-hint" data-i18n="modal_hint">Dica: ative as legendas no botão CC do player.</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <span data-i18n="footer_made">Feito para os comerciantes Ingoo</span>
+        · <a href="https://superappingoo.com.br" target="_blank" rel="noopener">superappingoo.com.br</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
