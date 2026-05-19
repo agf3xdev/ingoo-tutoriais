@@ -8,7 +8,7 @@
   <meta name="description" content="Aprenda a operar sua máquina Ingoo: WiFi, chip, status online/offline, aluguel no cartão e retirada via PIX." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ED7F39'/%3E%3Cg fill='%23fff' transform='translate(8 22)'%3E%3Ccircle cx='28' cy='10' r='9' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='42' cy='10' r='9' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E" />
 </head>
@@ -38,13 +38,34 @@
 
   <main>
     <section class="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
       <div class="container">
+        <div class="hero-status">
+          <span class="status-dot"></span>
+          <span class="status-label" data-i18n="hero_status">SISTEMA ONLINE</span>
+          <span class="status-sep">/</span>
+          <span class="status-meta" data-i18n="hero_meta">v4.0 · POWER BANK NETWORK</span>
+        </div>
         <span class="eyebrow" data-i18n="hero_eyebrow">Central de ajuda</span>
         <h1 data-i18n="hero_title">Tutoriais para Comerciantes Ingoo</h1>
         <p class="hero-sub" data-i18n="hero_sub">
           Vídeos curtos e diretos para você operar sua máquina de power bank com confiança.
           Legendas disponíveis em 4 idiomas.
         </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">04</span>
+            <span class="stat-label" data-i18n="stat_videos">Tutoriais</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">04</span>
+            <span class="stat-label" data-i18n="stat_langs">Idiomas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">~2<i>min</i></span>
+            <span class="stat-label" data-i18n="stat_duration">por vídeo</span>
+          </div>
+        </div>
       </div>
     </section>
 

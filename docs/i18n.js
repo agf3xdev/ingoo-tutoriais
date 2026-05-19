@@ -2,9 +2,14 @@ window.I18N = {
   pt: {
     htmlLang: 'pt-BR',
     brand_sub: 'Tutoriais',
+    hero_status: 'SISTEMA ONLINE',
+    hero_meta: 'v4.0 · REDE DE POWER BANK',
     hero_eyebrow: 'Central de ajuda',
     hero_title: 'Tutoriais para Comerciantes Ingoo',
     hero_sub: 'Vídeos curtos e diretos para você operar sua máquina de power bank com confiança. Legendas disponíveis em 4 idiomas.',
+    stat_videos: 'Tutoriais',
+    stat_langs: 'Idiomas',
+    stat_duration: 'por vídeo',
     modal_hint: 'Dica: ative as legendas no botão CC do player.',
     footer_made: 'Feito para os comerciantes Ingoo',
     badge_basic: 'Básico',
@@ -25,12 +30,6 @@ window.I18N = {
         badge: 'Configuração'
       },
       {
-        slug: 'configurar-chip',
-        title: 'Como configurar o chip de internet',
-        desc: 'Instalação e configuração do chip 4G para máquinas sem Wi-Fi disponível.',
-        badge: 'Configuração'
-      },
-      {
         slug: 'aluguel-cartao',
         title: 'Aluguel pelo cartão de crédito',
         desc: 'Como o cliente faz a retirada da power bank pagando com cartão de crédito.',
@@ -48,9 +47,14 @@ window.I18N = {
   en: {
     htmlLang: 'en',
     brand_sub: 'Tutorials',
+    hero_status: 'SYSTEM ONLINE',
+    hero_meta: 'v4.0 · POWER BANK NETWORK',
     hero_eyebrow: 'Help center',
     hero_title: 'Tutorials for Ingoo Merchants',
     hero_sub: 'Short, straight-to-the-point videos so you can operate your power bank station with confidence. Subtitles available in 4 languages.',
+    stat_videos: 'Tutorials',
+    stat_langs: 'Languages',
+    stat_duration: 'per video',
     modal_hint: 'Tip: enable subtitles using the CC button in the player.',
     footer_made: 'Made for Ingoo merchants',
     badge_basic: 'Basics',
@@ -71,12 +75,6 @@ window.I18N = {
         badge: 'Setup'
       },
       {
-        slug: 'configurar-chip',
-        title: 'How to set up the internet SIM card',
-        desc: 'Install and configure the 4G SIM card for stations where Wi-Fi is not available.',
-        badge: 'Setup'
-      },
-      {
         slug: 'aluguel-cartao',
         title: 'Renting with a credit card',
         desc: 'How customers rent a power bank by paying with a credit card.',
@@ -94,9 +92,14 @@ window.I18N = {
   es: {
     htmlLang: 'es',
     brand_sub: 'Tutoriales',
+    hero_status: 'SISTEMA EN LÍNEA',
+    hero_meta: 'v4.0 · RED DE POWER BANK',
     hero_eyebrow: 'Centro de ayuda',
     hero_title: 'Tutoriales para Comerciantes Ingoo',
     hero_sub: 'Videos cortos y directos para que operes tu estación de power bank con confianza. Subtítulos disponibles en 4 idiomas.',
+    stat_videos: 'Tutoriales',
+    stat_langs: 'Idiomas',
+    stat_duration: 'por video',
     modal_hint: 'Consejo: activa los subtítulos con el botón CC del reproductor.',
     footer_made: 'Hecho para los comerciantes Ingoo',
     badge_basic: 'Básico',
@@ -117,12 +120,6 @@ window.I18N = {
         badge: 'Configuración'
       },
       {
-        slug: 'configurar-chip',
-        title: 'Cómo configurar el chip de internet',
-        desc: 'Instalación y configuración del chip 4G para estaciones sin Wi-Fi disponible.',
-        badge: 'Configuración'
-      },
-      {
         slug: 'aluguel-cartao',
         title: 'Alquiler con tarjeta de crédito',
         desc: 'Cómo el cliente retira el power bank pagando con tarjeta de crédito.',
@@ -140,9 +137,14 @@ window.I18N = {
   zh: {
     htmlLang: 'zh-CN',
     brand_sub: '教程',
+    hero_status: '系统在线',
+    hero_meta: 'v4.0 · 充电宝网络',
     hero_eyebrow: '帮助中心',
     hero_title: 'Ingoo 商户操作教程',
     hero_sub: '简短直接的视频，帮助您自信地操作充电宝租赁机。提供 4 种语言字幕。',
+    stat_videos: '教程',
+    stat_langs: '语言',
+    stat_duration: '每个视频',
     modal_hint: '提示：点击播放器中的 CC 按钮开启字幕。',
     footer_made: '为 Ingoo 商户精心打造',
     badge_basic: '基础',
@@ -160,12 +162,6 @@ window.I18N = {
         slug: 'conectar-wifi',
         title: '如何将机器连接到 Wi-Fi',
         desc: '将机器连接到场所 Wi-Fi 网络的分步指南。',
-        badge: '设置'
-      },
-      {
-        slug: 'configurar-chip',
-        title: '如何配置上网 SIM 卡',
-        desc: '为没有 Wi-Fi 的机器安装和配置 4G SIM 卡。',
         badge: '设置'
       },
       {
