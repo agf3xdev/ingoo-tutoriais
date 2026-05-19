@@ -16,6 +16,7 @@ window.I18N = {
     badge_setup: 'Configuração',
     badge_payments: 'Pagamentos',
     watch: 'Assistir vídeo',
+    support_label: 'Suporte',
     tutorials: [
       {
         slug: 'maquina-online-offline',
@@ -61,6 +62,7 @@ window.I18N = {
     badge_setup: 'Setup',
     badge_payments: 'Payments',
     watch: 'Watch video',
+    support_label: 'Support',
     tutorials: [
       {
         slug: 'maquina-online-offline',
@@ -106,6 +108,7 @@ window.I18N = {
     badge_setup: 'Configuración',
     badge_payments: 'Pagos',
     watch: 'Ver video',
+    support_label: 'Soporte',
     tutorials: [
       {
         slug: 'maquina-online-offline',
@@ -151,6 +154,7 @@ window.I18N = {
     badge_setup: '设置',
     badge_payments: '支付',
     watch: '观看视频',
+    support_label: '客服',
     tutorials: [
       {
         slug: 'maquina-online-offline',

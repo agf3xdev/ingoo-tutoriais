@@ -142,24 +142,43 @@ main { flex: 1; }
 
 /* ============== HERO ============== */
 .hero {
-  background: #0a0a0a;
+  background:
+    radial-gradient(700px 380px at 80% 60%, rgba(237, 127, 57, .28) 0%, transparent 65%),
+    radial-gradient(500px 280px at 10% 110%, rgba(237, 127, 57, .14) 0%, transparent 60%),
+    #0a0a0a;
   color: #fff;
-  padding: 96px 0 120px;
+  padding: 100px 0 120px;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 .hero::before {
+  /* Logo INGOO oficial como watermark gigante */
+  content: '';
+  position: absolute;
+  right: -8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(880px, 75%);
+  aspect-ratio: 717 / 196;
+  background: url('images/ingoo-logo.png') no-repeat center / contain;
+  opacity: .07;
+  filter: blur(.3px) drop-shadow(0 0 50px rgba(237, 127, 57, .5));
+  pointer-events: none;
+  z-index: -1;
+}
+.hero::after {
+  /* Fade nas bordas pra logo sair de cena com suavidade */
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(900px 500px at 20% 0%, rgba(237, 127, 57, .22) 0%, transparent 60%),
-    radial-gradient(700px 400px at 100% 100%, rgba(237, 127, 57, .14) 0%, transparent 60%);
+  background: linear-gradient(90deg, rgba(10,10,10,.7) 0%, transparent 35%, transparent 70%, rgba(10,10,10,.4) 100%);
   pointer-events: none;
+  z-index: -1;
 }
 .hero .container { position: relative; }
 .hero-inner {
-  max-width: 760px;
+  max-width: 720px;
 }
 
 .eyebrow {
@@ -468,6 +487,86 @@ main { flex: 1; }
   font-family: var(--mono);
   letter-spacing: .03em;
   background: rgba(255,255,255,.02);
+}
+
+/* ============== SUPPORT FAB ============== */
+.support-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px 12px 14px;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow:
+    0 8px 24px rgba(37, 211, 102, .35),
+    0 2px 6px rgba(0, 0, 0, .15);
+  transition: transform .2s ease, box-shadow .2s ease, background .15s ease;
+}
+.support-fab:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #1FB855;
+  box-shadow:
+    0 12px 32px rgba(37, 211, 102, .5),
+    0 4px 10px rgba(0, 0, 0, .18);
+}
+.support-fab::before {
+  /* Pulse ring */
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 2px solid #25D366;
+  opacity: 0;
+  animation: fab-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes fab-pulse {
+  0% { opacity: .6; transform: scale(.92); }
+  100% { opacity: 0; transform: scale(1.18); }
+}
+.support-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+.support-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.1;
+}
+.support-label {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: .85;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.support-number {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--mono);
+  letter-spacing: .01em;
+}
+
+@media (max-width: 540px) {
+  .support-fab {
+    right: 16px;
+    bottom: 16px;
+    padding: 12px;
+    gap: 0;
+  }
+  .support-fab .support-text { display: none; }
+  .support-icon { width: 28px; height: 28px; }
 }
 
 /* ============== FOOTER ============== */
