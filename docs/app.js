@@ -1,6 +1,8 @@
 (function () {
   const STORAGE_KEY = 'ingoo_tutorials_lang';
   const SUPPORTED = ['pt', 'en', 'es', 'zh'];
+  // Vídeos já têm legenda PT queimada — track só para idiomas estrangeiros
+  const SUBTITLE_LANGS = ['en', 'es', 'zh'];
 
   function detectLang() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -98,12 +100,12 @@
     source.type = 'video/mp4';
     video.appendChild(source);
 
-    SUPPORTED.forEach((lng) => {
+    SUBTITLE_LANGS.forEach((lng) => {
       const track = document.createElement('track');
       track.kind = 'subtitles';
       track.src = `subtitles/${slug}.${lng}.vtt`;
       track.srclang = lng;
-      track.label = { pt: 'Português', en: 'English', es: 'Español', zh: '中文' }[lng];
+      track.label = { en: 'English', es: 'Español', zh: '中文' }[lng];
       if (lng === state.lang) track.default = true;
       video.appendChild(track);
     });
@@ -119,6 +121,7 @@
       }
       video.play().catch(() => {});
     }, 100);
+    // Em PT, o vídeo já tem legenda queimada — nenhum track precisa estar ativo.
   }
 
   function closeVideo() {

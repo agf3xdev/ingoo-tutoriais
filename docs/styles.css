@@ -1,18 +1,20 @@
 :root {
-  --bg: #0a1f44;
-  --bg-2: #0d2856;
-  --surface: #ffffff;
-  --surface-2: #f6f8fc;
-  --ink: #0a1f44;
-  --ink-2: #4a5572;
-  --line: #e3e8f1;
-  --accent: #ffd84d;
-  --accent-ink: #1a1402;
-  --brand: #2563eb;
+  /* Identidade Ingoo — laranja, preto, branco */
+  --ingoo: #ED7F39;          /* laranja Ingoo (amostrado da logo oficial) */
+  --ingoo-dark: #C95F1A;     /* laranja queimado (hover/sombras) */
+  --ingoo-soft: #FFF1E5;     /* laranja muito claro (background suave) */
+  --ingoo-tint: #FFE0C7;
+
+  --surface: #ffffff;        /* branco puro */
+  --surface-2: #ffffff;
+  --ink: #000000;            /* preto puro */
+  --ink-2: #4d4d4d;          /* preto suavizado para texto secundário */
+  --line: #ECECEC;           /* cinza muito claro neutro */
+
   --radius: 16px;
   --radius-lg: 24px;
-  --shadow-sm: 0 1px 2px rgba(10, 31, 68, .06), 0 2px 8px rgba(10, 31, 68, .04);
-  --shadow-md: 0 4px 12px rgba(10, 31, 68, .08), 0 12px 32px rgba(10, 31, 68, .08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .04), 0 2px 8px rgba(0, 0, 0, .04);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, .08), 0 16px 40px rgba(0, 0, 0, .08);
 }
 
 * { box-sizing: border-box; }
@@ -40,57 +42,47 @@ body { min-height: 100vh; display: flex; flex-direction: column; }
 
 main { flex: 1; }
 
-/* Header */
+/* Header — branco, sticky, com logo Ingoo laranja */
 .site-header {
-  background: var(--bg);
-  color: #fff;
+  background: #fff;
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(237, 127, 57, .04);
 }
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: 14px 24px;
   gap: 16px;
 }
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: #fff;
+  gap: 14px;
   text-decoration: none;
-  font-weight: 700;
+  color: var(--ink);
 }
-.brand-mark {
-  width: 36px; height: 36px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 20px;
-  font-style: italic;
+.brand-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
-.brand-name {
-  font-size: 18px;
-  letter-spacing: -.01em;
-}
-.brand-name em {
-  font-style: normal;
-  font-weight: 400;
-  opacity: .7;
-  margin-left: 4px;
-  font-size: 14px;
+.brand-sub {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  padding-left: 14px;
+  border-left: 1px solid var(--line);
+  letter-spacing: .01em;
 }
 
 .lang-switcher {
   display: flex;
-  gap: 4px;
-  background: rgba(255,255,255,.08);
+  gap: 2px;
+  background: var(--ingoo-soft);
   padding: 4px;
   border-radius: 12px;
 }
@@ -100,27 +92,28 @@ main { flex: 1; }
   gap: 6px;
   border: 0;
   background: transparent;
-  color: #fff;
+  color: var(--ingoo-deep);
   padding: 7px 12px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 13px;
   cursor: pointer;
   font-family: inherit;
-  transition: background .15s ease, color .15s ease;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
 }
-.lang-btn:hover { background: rgba(255,255,255,.08); }
+.lang-btn:hover { background: rgba(237, 127, 57, .12); }
 .lang-btn[aria-pressed="true"] {
-  background: #fff;
-  color: var(--ink);
+  background: var(--ingoo);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(237, 127, 57, .35);
 }
 .lang-btn .flag { font-size: 14px; line-height: 1; }
 
-/* Hero */
+/* Hero — preto sólido com acentos laranja */
 .hero {
-  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
+  background: #000;
   color: #fff;
-  padding: 72px 0 88px;
+  padding: 80px 0 100px;
   position: relative;
   overflow: hidden;
 }
@@ -129,48 +122,61 @@ main { flex: 1; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 85% 20%, rgba(255, 216, 77, .12) 0%, transparent 40%),
-    radial-gradient(circle at 15% 90%, rgba(37, 99, 235, .15) 0%, transparent 40%);
+    radial-gradient(circle at 85% 20%, rgba(237, 127, 57, .35) 0%, transparent 45%),
+    radial-gradient(circle at 12% 92%, rgba(237, 127, 57, .18) 0%, transparent 42%);
+  pointer-events: none;
+}
+.hero::after {
+  /* Infinito laranja ao fundo, referência aos OO da logo */
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -100px;
+  width: 540px;
+  height: 250px;
+  transform: translateY(-50%);
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'><g fill='none' stroke='%23ED7F39' stroke-width='12' stroke-linecap='round'><circle cx='65' cy='50' r='38'/><circle cx='135' cy='50' r='38'/></g></svg>") no-repeat center / contain;
+  opacity: .22;
   pointer-events: none;
 }
 .hero .container { position: relative; }
 .eyebrow {
   display: inline-block;
-  background: rgba(255, 216, 77, .15);
-  color: var(--accent);
-  padding: 6px 12px;
+  background: var(--ingoo);
+  color: #000;
+  padding: 6px 14px;
   border-radius: 999px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .08em;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .hero h1 {
-  font-size: clamp(28px, 4.5vw, 44px);
+  font-size: clamp(30px, 4.8vw, 48px);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -.02em;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   max-width: 760px;
 }
 .hero-sub {
   font-size: clamp(15px, 1.6vw, 18px);
   line-height: 1.6;
-  color: rgba(255,255,255,.78);
+  color: rgba(255,255,255,.88);
   max-width: 620px;
   margin: 0;
 }
 
 /* Grid */
 .grid-section {
-  padding: 56px 0 96px;
-  margin-top: -40px;
+  padding: 60px 0 96px;
+  margin-top: -50px;
 }
 .tutorials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 20px;
+  gap: 22px;
 }
 
 .card {
@@ -192,12 +198,12 @@ main { flex: 1; }
 .card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: #d4dbe9;
+  border-color: var(--ingoo-tint);
 }
 .card-thumb {
   position: relative;
   aspect-ratio: 16 / 10;
-  background: linear-gradient(135deg, #2563eb 0%, #0a1f44 100%);
+  background: #000;
   overflow: hidden;
 }
 .card-thumb svg.bg {
@@ -214,36 +220,36 @@ main { flex: 1; }
   place-items: center;
 }
 .card-thumb .play span {
-  width: 56px;
-  height: 56px;
-  background: rgba(255,255,255,.95);
-  color: var(--ink);
+  width: 60px;
+  height: 60px;
+  background: var(--ingoo);
+  color: #fff;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,.25);
-  transition: transform .2s ease;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  transition: transform .2s ease, background .2s ease;
 }
-.card:hover .play span { transform: scale(1.08); }
+.card:hover .play span { background: #fff; color: var(--ingoo); }
+.card:hover .play span { transform: scale(1.08); background: #fff; color: var(--ingoo); }
 .card-thumb .play span::before {
   content: '';
   display: block;
   width: 0;
   height: 0;
   margin-left: 4px;
-  border-left: 14px solid currentColor;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
+  border-left: 15px solid currentColor;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 }
 .card-thumb .badge {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(10, 31, 68, .7);
-  backdrop-filter: blur(8px);
-  color: #fff;
+  background: var(--ingoo);
+  color: #000;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   padding: 5px 10px;
   border-radius: 999px;
   letter-spacing: .04em;
@@ -262,12 +268,13 @@ main { flex: 1; }
   line-height: 1.3;
   margin: 0;
   letter-spacing: -.01em;
+  color: var(--ink);
 }
 .card-desc {
   margin: 0;
   color: var(--ink-2);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .card-foot {
   margin-top: auto;
@@ -275,8 +282,8 @@ main { flex: 1; }
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--brand);
-  font-weight: 600;
+  color: var(--ingoo);
+  font-weight: 700;
   font-size: 13px;
 }
 
@@ -294,7 +301,7 @@ main { flex: 1; }
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(10, 31, 68, .65);
+  background: rgba(0, 0, 0, .72);
   backdrop-filter: blur(6px);
 }
 .modal-content {
@@ -307,7 +314,7 @@ main { flex: 1; }
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 30px 80px rgba(0,0,0,.4);
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
   animation: pop .2s ease;
 }
 @keyframes pop {
@@ -327,7 +334,7 @@ main { flex: 1; }
   position: absolute;
   top: 10px;
   right: 12px;
-  background: rgba(255,255,255,.1);
+  background: rgba(255,255,255,.12);
   border: 0;
   color: #fff;
   width: 36px;
@@ -339,7 +346,7 @@ main { flex: 1; }
   z-index: 2;
   transition: background .15s;
 }
-.modal-close:hover { background: rgba(255,255,255,.2); }
+.modal-close:hover { background: var(--ingoo); }
 #modalVideo {
   width: 100%;
   max-height: 70vh;
@@ -347,7 +354,7 @@ main { flex: 1; }
   display: block;
 }
 .modal-hint {
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.65);
   margin: 0;
   padding: 12px 22px 16px;
   font-size: 13px;
@@ -356,19 +363,22 @@ main { flex: 1; }
 
 /* Footer */
 .site-footer {
-  background: var(--bg);
+  background: #000;
   color: rgba(255,255,255,.6);
-  padding: 28px 0;
+  padding: 32px 0;
   font-size: 14px;
   text-align: center;
 }
-.site-footer a { color: var(--accent); text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }
+.site-footer a { color: var(--ingoo); text-decoration: none; font-weight: 600; }
+.site-footer a:hover { color: #fff; text-decoration: underline; }
 
 @media (max-width: 540px) {
-  .hero { padding: 56px 0 64px; }
-  .grid-section { padding: 32px 0 64px; }
+  .hero { padding: 56px 0 72px; }
+  .hero::after { display: none; }
+  .grid-section { padding: 36px 0 64px; }
   .header-inner { padding: 12px 16px; }
-  .brand-name em { display: none; }
+  .brand-logo { height: 26px; }
+  .brand-sub { display: none; }
   .lang-btn { padding: 6px 8px; font-size: 12px; }
+  .lang-btn .flag { display: none; }
 }
