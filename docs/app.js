@@ -102,7 +102,8 @@
     title.textContent = tut.title;
     video.innerHTML = '';
     const source = document.createElement('source');
-    source.src = `videos/${slug}.mp4`;
+    // PT: vídeo com legenda queimada. Outros idiomas: vídeo sem legenda + track VTT.
+    source.src = state.lang === 'pt' ? `videos/${slug}.pt.mp4` : `videos/${slug}.mp4`;
     source.type = 'video/mp4';
     video.appendChild(source);
 
