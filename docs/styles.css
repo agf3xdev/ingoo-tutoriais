@@ -205,6 +205,53 @@ main { flex: 1; padding: 24px 0 40px; }
   font-size: 16px;
   line-height: 1.65;
 }
+.hero p b { color: var(--text); font-weight: 600; }
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all .18s ease;
+}
+.btn-primary {
+  background: var(--orange);
+  color: #0a0a0a;
+  box-shadow: 0 8px 24px rgba(255, 107, 0, .25);
+}
+.btn-primary:hover {
+  background: var(--orange2);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(255, 107, 0, .35);
+  color: #0a0a0a;
+}
+.btn-primary .arrow { transition: transform .2s; }
+.btn-primary:hover .arrow { transform: translateY(2px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(255, 107, 0, .06);
+}
 
 /* ============== GRID ============== */
 .grid-section { padding: 32px 0 40px; }
