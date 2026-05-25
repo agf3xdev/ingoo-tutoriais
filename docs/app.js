@@ -1,8 +1,8 @@
 (function () {
   const STORAGE_KEY = 'ingoo_tutorials_lang';
   const SUPPORTED = ['pt', 'en', 'es', 'zh'];
-  // Vídeos já têm legenda PT queimada — track só para idiomas estrangeiros
   const SUBTITLE_LANGS = ['en', 'es', 'zh'];
+  const ALL_SUB_LANGS = ['pt', 'en', 'es', 'zh'];
 
   function detectLang() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -14,71 +14,79 @@
     return 'pt';
   }
 
-  const state = { lang: detectLang() };
+  const state = { lang: detectLang(), data: null };
 
-  function thumbSvg(slug) {
-    const icons = {
-      'maquina-online-offline':
-        '<g><circle cx="200" cy="125" r="44" fill="none" stroke="%23ED7F39" stroke-width="3" opacity=".4"/><circle cx="200" cy="125" r="28" fill="%23ED7F39"/><circle cx="200" cy="125" r="10" fill="%23000"/></g>',
-      'conectar-wifi':
-        '<g fill="none" stroke="%23ED7F39" stroke-width="7" stroke-linecap="round"><path d="M140 158 Q200 95 260 158" opacity=".4"/><path d="M158 168 Q200 122 242 168" opacity=".7"/><path d="M176 178 Q200 150 224 178"/><circle cx="200" cy="190" r="7" fill="%23ED7F39" stroke="none"/></g>',
-      'configurar-chip':
-        '<g><rect x="155" y="88" width="90" height="74" rx="10" fill="none" stroke="%23ED7F39" stroke-width="3"/><rect x="170" y="100" width="60" height="50" rx="3" fill="%23ED7F39"/><g fill="%23000"><rect x="178" y="108" width="44" height="3"/><rect x="178" y="118" width="44" height="3"/><rect x="178" y="128" width="32" height="3"/><rect x="178" y="138" width="38" height="3"/></g></g>',
-      'aluguel-cartao':
-        '<g><rect x="135" y="92" width="130" height="78" rx="8" fill="none" stroke="%23ED7F39" stroke-width="3"/><rect x="135" y="106" width="130" height="18" fill="%23ED7F39"/><rect x="148" y="138" width="40" height="6" rx="2" fill="%23ED7F39" opacity=".7"/><rect x="148" y="150" width="22" height="6" rx="2" fill="%23ED7F39" opacity=".4"/></g>',
-      'retirada-pix':
-        '<g><g fill="%23ED7F39"><rect x="165" y="90" width="24" height="24" rx="2"/><rect x="211" y="90" width="24" height="24" rx="2"/><rect x="165" y="136" width="24" height="24" rx="2"/></g><g fill="none" stroke="%23ED7F39" stroke-width="3"><rect x="211" y="136" width="24" height="24" rx="2"/></g><g fill="%23ED7F39" opacity=".5"><rect x="197" y="124" width="4" height="4"/><rect x="223" y="146" width="4" height="4"/></g></g>'
-    };
-    // Grid SVG pattern + icon centrado
+  async function loadContent() {
+    const res = await fetch(`data/content.json?cb=${Date.now()}`);
+    if (!res.ok) throw new Error('Failed to load content');
+    state.data = await res.json();
+  }
+
+  function thumbSvg(slug, idx) {
+    const icons = [
+      '<g><circle cx="200" cy="125" r="44" fill="none" stroke="%23ff6b00" stroke-width="3" opacity=".4"/><circle cx="200" cy="125" r="28" fill="%23ff6b00"/><circle cx="200" cy="125" r="10" fill="%23000"/></g>',
+      '<g fill="none" stroke="%23ff6b00" stroke-width="7" stroke-linecap="round"><path d="M140 158 Q200 95 260 158" opacity=".4"/><path d="M158 168 Q200 122 242 168" opacity=".7"/><path d="M176 178 Q200 150 224 178"/><circle cx="200" cy="190" r="7" fill="%23ff6b00" stroke="none"/></g>',
+      '<g><rect x="135" y="92" width="130" height="78" rx="8" fill="none" stroke="%23ff6b00" stroke-width="3"/><rect x="135" y="106" width="130" height="18" fill="%23ff6b00"/><rect x="148" y="138" width="40" height="6" rx="2" fill="%23ff6b00" opacity=".7"/><rect x="148" y="150" width="22" height="6" rx="2" fill="%23ff6b00" opacity=".4"/></g>',
+      '<g><g fill="%23ff6b00"><rect x="165" y="90" width="24" height="24" rx="2"/><rect x="211" y="90" width="24" height="24" rx="2"/><rect x="165" y="136" width="24" height="24" rx="2"/></g><g fill="none" stroke="%23ff6b00" stroke-width="3"><rect x="211" y="136" width="24" height="24" rx="2"/></g></g>',
+      '<g><rect x="155" y="88" width="90" height="74" rx="10" fill="none" stroke="%23ff6b00" stroke-width="3"/><rect x="170" y="100" width="60" height="50" rx="3" fill="%23ff6b00"/><g fill="%23000"><rect x="178" y="108" width="44" height="3"/><rect x="178" y="118" width="44" height="3"/><rect x="178" y="128" width="32" height="3"/><rect x="178" y="138" width="38" height="3"/></g></g>',
+      '<g fill="none" stroke="%23ff6b00" stroke-width="6" stroke-linecap="round"><path d="M150 100 L200 150 L250 100"/><path d="M150 150 L200 200 L250 150" opacity=".5"/></g>'
+    ];
+    const icon = icons[idx % icons.length];
     return `<svg class="bg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="grid-${slug}" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(237,127,57,0.08)" stroke-width="1"/>
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,107,0,0.08)" stroke-width="1"/>
         </pattern>
         <radialGradient id="glow-${slug}" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(237,127,57,0.25)"/>
-          <stop offset="100%" stop-color="rgba(237,127,57,0)"/>
+          <stop offset="0%" stop-color="rgba(255,107,0,0.25)"/>
+          <stop offset="100%" stop-color="rgba(255,107,0,0)"/>
         </radialGradient>
       </defs>
       <rect width="400" height="250" fill="%23000"/>
       <rect width="400" height="250" fill="url(%23grid-${slug})"/>
       <rect width="400" height="250" fill="url(%23glow-${slug})"/>
-      ${icons[slug] || ''}
+      ${icon}
     </svg>`;
   }
 
-  function render() {
-    const t = window.I18N[state.lang];
-    document.documentElement.lang = t.htmlLang;
-
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
+  function applyI18n(key, t) {
+    document.querySelectorAll(`[data-i18n="${key}"]`).forEach((el) => {
       if (t[key] == null) return;
       if (t[key].includes('<')) el.innerHTML = t[key];
       else el.textContent = t[key];
     });
+  }
+
+  function renderSite() {
+    const t = state.data.site[state.lang];
+    document.documentElement.lang = t.htmlLang;
+    Object.keys(t).forEach((k) => applyI18n(k, t));
 
     document.querySelectorAll('.lang-btn').forEach((btn) => {
-      const isActive = btn.dataset.lang === state.lang;
-      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      btn.setAttribute('aria-pressed', btn.dataset.lang === state.lang ? 'true' : 'false');
     });
+  }
 
+  function renderTutorials() {
+    const t = state.data.site[state.lang];
+    const tutorials = state.data.tutorials || [];
     const grid = document.getElementById('tutorialsGrid');
-    const total = String(t.tutorials.length).padStart(2, '0');
-    grid.innerHTML = t.tutorials
+    const total = String(tutorials.length).padStart(2, '0');
+    grid.innerHTML = tutorials
       .map((tut, i) => {
+        const meta = (tut.i18n && tut.i18n[state.lang]) || (tut.i18n && tut.i18n.pt) || {};
         const num = String(i + 1).padStart(2, '0');
         return `
-        <button class="card" data-slug="${tut.slug}" type="button" aria-label="${tut.title}">
+        <button class="card" data-slug="${tut.slug}" type="button" aria-label="${meta.title || ''}">
           <div class="card-thumb">
-            ${thumbSvg(tut.slug)}
-            <span class="badge">${tut.badge}</span>
+            ${thumbSvg(tut.slug, i)}
+            <span class="badge">${meta.badge || ''}</span>
             <span class="card-index">${num} <em>/${total}</em></span>
             <span class="play"><span></span></span>
           </div>
           <div class="card-body">
-            <h3 class="card-title">${tut.title}</h3>
-            <p class="card-desc">${tut.desc}</p>
+            <h3 class="card-title">${meta.title || ''}</h3>
+            <p class="card-desc">${meta.desc || ''}</p>
             <span class="card-foot">${t.watch} <span class="arrow">→</span></span>
           </div>
         </button>`;
@@ -90,29 +98,72 @@
     });
   }
 
+  function renderFaq() {
+    const t = state.data.site[state.lang];
+    const list = document.getElementById('faqList');
+    if (!list) return;
+    const items = t.faq || [];
+    if (!items.length) {
+      document.getElementById('faqSection').style.display = 'none';
+      return;
+    }
+    document.getElementById('faqSection').style.display = '';
+    list.innerHTML = items
+      .map(
+        (item) => `
+      <details class="faq-item">
+        <summary>${item.q}<span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">${item.a}</div>
+      </details>`
+      )
+      .join('');
+  }
+
+  function renderSupport() {
+    const s = state.data.support || {};
+    const fab = document.querySelector('.support-fab');
+    if (!fab || !s.whatsapp) return;
+    fab.href = `https://wa.me/${s.whatsapp.replace(/\D/g, '')}`;
+    const num = fab.querySelector('.support-number');
+    if (num) num.textContent = s.display || s.whatsapp;
+    const cta = document.querySelector('.btn-ghost[data-support-link]');
+    if (cta) cta.href = `https://wa.me/${s.whatsapp.replace(/\D/g, '')}`;
+  }
+
+  function render() {
+    renderSite();
+    renderSupport();
+    renderTutorials();
+    renderFaq();
+  }
+
   function openVideo(slug) {
-    const t = window.I18N[state.lang];
-    const tut = t.tutorials.find((x) => x.slug === slug);
+    const tut = (state.data.tutorials || []).find((x) => x.slug === slug);
     if (!tut) return;
+    const meta = (tut.i18n && tut.i18n[state.lang]) || (tut.i18n && tut.i18n.pt) || {};
 
     const modal = document.getElementById('videoModal');
     const video = document.getElementById('modalVideo');
     const title = document.getElementById('modalTitle');
 
-    title.textContent = tut.title;
+    title.textContent = meta.title || '';
     video.innerHTML = '';
     const source = document.createElement('source');
-    // PT: vídeo com legenda queimada. Outros idiomas: vídeo sem legenda + track VTT.
-    source.src = state.lang === 'pt' ? `videos/${slug}.pt.mp4` : `videos/${slug}.mp4`;
+    if (tut.burnedSubs && state.lang === 'pt') {
+      source.src = `videos/${slug}.pt.mp4`;
+    } else {
+      source.src = `videos/${slug}.mp4`;
+    }
     source.type = 'video/mp4';
     video.appendChild(source);
 
-    SUBTITLE_LANGS.forEach((lng) => {
+    const trackLangs = tut.burnedSubs ? SUBTITLE_LANGS : ALL_SUB_LANGS;
+    trackLangs.forEach((lng) => {
       const track = document.createElement('track');
       track.kind = 'subtitles';
       track.src = `subtitles/${slug}.${lng}.vtt`;
       track.srclang = lng;
-      track.label = { en: 'English', es: 'Español', zh: '中文' }[lng];
+      track.label = { pt: 'Português', en: 'English', es: 'Español', zh: '中文' }[lng];
       if (lng === state.lang) track.default = true;
       video.appendChild(track);
     });
@@ -128,7 +179,6 @@
       }
       video.play().catch(() => {});
     }, 100);
-    // Em PT, o vídeo já tem legenda queimada — nenhum track precisa estar ativo.
   }
 
   function closeVideo() {
@@ -143,7 +193,14 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      await loadContent();
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+
     document.querySelectorAll('.lang-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         state.lang = btn.dataset.lang;

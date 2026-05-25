@@ -396,6 +396,83 @@ main { flex: 1; padding: 24px 0 40px; }
 .card-foot .arrow { display: inline-block; transition: transform .2s ease; }
 .card:hover .card-foot .arrow { transform: translateX(4px); }
 
+/* ============== FAQ ============== */
+.faq-section {
+  padding: 24px 0 56px;
+}
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--orange);
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin: 0 0 20px;
+  color: var(--text);
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.faq-item[open] { border-color: rgba(255, 107, 0, .4); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 107, 0, .12);
+  color: var(--orange);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 400;
+  transition: transform .2s, background .2s;
+  flex-shrink: 0;
+}
+.faq-item[open] .faq-icon { transform: rotate(45deg); background: var(--orange); color: #0a0a0a; }
+.faq-answer {
+  padding: 0 20px 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 /* ============== MODAL ============== */
 .modal {
   position: fixed;
@@ -527,6 +604,8 @@ main { flex: 1; padding: 24px 0 40px; }
 }
 .site-footer a { color: var(--orange); font-weight: 600; }
 .site-footer a:hover { color: var(--orange2); }
+.site-footer .admin-link { opacity: .35; }
+.site-footer .admin-link:hover { opacity: 1; }
 
 @media (max-width: 640px) {
   .hero { padding: 56px 20px 48px; border-radius: 16px; }
