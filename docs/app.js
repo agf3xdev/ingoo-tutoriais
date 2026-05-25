@@ -121,13 +121,43 @@
 
   function renderSupport() {
     const s = state.data.support || {};
-    const fab = document.querySelector('.support-fab');
-    if (!fab || !s.whatsapp) return;
-    fab.href = `https://wa.me/${s.whatsapp.replace(/\D/g, '')}`;
-    const num = fab.querySelector('.support-number');
-    if (num) num.textContent = s.display || s.whatsapp;
-    const cta = document.querySelector('.btn-ghost[data-support-link]');
-    if (cta) cta.href = `https://wa.me/${s.whatsapp.replace(/\D/g, '')}`;
+    const cities = Array.isArray(s.cities) ? s.cities : [];
+    const list = document.getElementById('supportCityList');
+    if (list) {
+      list.innerHTML = cities.map((c) => `
+        <a class="support-city" href="https://wa.me/${c.whatsapp.replace(/\D/g, '')}" target="_blank" rel="noopener">
+          <span class="support-city-name">${c.name}</span>
+          <span class="support-city-num">${c.display || c.whatsapp}</span>
+        </a>`).join('');
+    }
+  }
+
+  function setupSupportPopover() {
+    const fab = document.getElementById('supportFab');
+    const pop = document.getElementById('supportPopover');
+    const wrap = document.getElementById('supportWrap');
+    if (!fab || !pop || !wrap) return;
+    function open() {
+      pop.hidden = false;
+      requestAnimationFrame(() => pop.classList.add('open'));
+      fab.setAttribute('aria-expanded', 'true');
+    }
+    function close() {
+      pop.classList.remove('open');
+      fab.setAttribute('aria-expanded', 'false');
+      setTimeout(() => { if (!pop.classList.contains('open')) pop.hidden = true; }, 180);
+    }
+    function toggle() {
+      pop.hidden ? open() : close();
+    }
+    fab.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+    document.querySelectorAll('[data-support-trigger]').forEach((b) => {
+      b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); fab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+    });
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
   }
 
   function render() {
@@ -217,6 +247,7 @@
       if (e.key === 'Escape') closeVideo();
     });
 
+    setupSupportPopover();
     render();
   });
 })();

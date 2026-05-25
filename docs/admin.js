@@ -1,8 +1,5 @@
 (function () {
-  const REPO = 'agf3xdev/ingoo-tutoriais';
-  const BRANCH = 'main';
-  const CONTENT_PATH = 'docs/data/content.json';
-  const TOKEN_KEY = 'ingoo_admin_token';
+  const TOKEN_KEY = 'ingoo_admin_session';
   const LANGS = ['pt', 'en', 'es', 'zh'];
   const LANG_LABELS = { pt: 'PT', en: 'EN', es: 'ES', zh: 'ZH' };
 
@@ -23,7 +20,9 @@
   ];
 
   const state = {
-    token: localStorage.getItem(TOKEN_KEY) || '',
+    api: '',
+    token: '',
+    user: '',
     sha: null,
     data: null,
     dirty: false,
@@ -38,49 +37,60 @@
     toastEl.textContent = msg;
     toastEl.className = 'toast show' + (type === 'err' ? ' err' : '');
     clearTimeout(toastT);
-    toastT = setTimeout(() => toastEl.classList.remove('show'), 3000);
+    toastT = setTimeout(() => toastEl.classList.remove('show'), 3500);
   }
 
-  // ---------- GitHub API ----------
-  async function gh(path, opts = {}) {
-    const url = `https://api.github.com/repos/${REPO}${path}`;
-    const headers = {
-      'Authorization': `token ${state.token}`,
-      'Accept': 'application/vnd.github+json',
-      ...(opts.headers || {})
-    };
-    if (opts.body && typeof opts.body !== 'string') {
-      opts.body = JSON.stringify(opts.body);
-      headers['Content-Type'] = 'application/json';
-    }
-    const res = await fetch(url, { ...opts, headers });
+  // ---------- session ----------
+  function saveSession(token, user) {
+    state.token = token;
+    state.user = user;
+    localStorage.setItem(TOKEN_KEY, JSON.stringify({ token, user }));
+  }
+  function loadSession() {
+    try {
+      const s = JSON.parse(localStorage.getItem(TOKEN_KEY) || 'null');
+      if (s && s.token) { state.token = s.token; state.user = s.user; return s; }
+    } catch {}
+    return null;
+  }
+  function clearSession() {
+    localStorage.removeItem(TOKEN_KEY);
+    state.token = '';
+    state.user = '';
+  }
+
+  // ---------- api helpers ----------
+  async function apiCall(method, path, body) {
+    if (!state.api) throw new Error('Worker não configurado em data/admin-config.json');
+    const headers = {};
+    if (state.token) headers['Authorization'] = `Bearer ${state.token}`;
+    if (body) headers['Content-Type'] = 'application/json';
+    const res = await fetch(state.api.replace(/\/$/, '') + path, {
+      method, headers, body: body ? JSON.stringify(body) : undefined,
+    });
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
-    if (!res.ok) throw new Error(data?.message || `HTTP ${res.status}`);
+    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
     return data;
   }
 
-  async function getFile(path) {
-    return gh(`/contents/${encodeURIComponent(path).replace(/%2F/g, '/')}?ref=${BRANCH}`);
+  // ---------- base64 / utf8 ----------
+  function decodeUtf8B64(b64) {
+    const clean = b64.replace(/\n/g, '');
+    const bin = atob(clean);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
   }
-
-  async function putFile(path, content, sha, message) {
-    return gh(`/contents/${path}`, {
-      method: 'PUT',
-      body: {
-        message: message || `update ${path}`,
-        content: typeof content === 'string' ? btoa(unescape(encodeURIComponent(content))) : content,
-        branch: BRANCH,
-        sha
-      }
-    });
+  function encodeUtf8B64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    const chunk = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunk) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+    }
+    return btoa(bin);
   }
-
-  function decodeContent(b64) {
-    return decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
-  }
-
-  // Convert ArrayBuffer to base64 in chunks (safe for big files)
   function abToBase64(ab) {
     const bytes = new Uint8Array(ab);
     let bin = '';
@@ -91,31 +101,18 @@
     return btoa(bin);
   }
 
-  // ---------- auth ----------
-  async function tryLogin(token) {
-    state.token = token;
-    const me = await gh('/').catch(() => null); // just to validate token+repo access
-    if (!me) throw new Error('Token inválido ou sem acesso ao repo');
-    localStorage.setItem(TOKEN_KEY, token);
-    return me;
-  }
-
-  function logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    state.token = '';
-    location.reload();
-  }
-
-  function setStatus(connected, name) {
+  // ---------- status ----------
+  function setStatus(connected, user) {
     const pill = document.getElementById('statusPill');
     const text = document.getElementById('statusText');
     if (connected) {
       pill.classList.add('ok');
-      text.textContent = name ? `Conectado: ${name}` : 'Conectado';
+      text.textContent = user ? `Conectado: ${user}` : 'Conectado';
       document.getElementById('logoutBtn').style.display = '';
     } else {
       pill.classList.remove('ok');
       text.textContent = 'Não conectado';
+      document.getElementById('logoutBtn').style.display = 'none';
     }
   }
 
@@ -191,7 +188,7 @@
           <div class="tut-body">
             <label style="margin-bottom:10px;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--muted);font-size:13px">
               <input type="checkbox" data-burned ${t.burnedSubs ? 'checked' : ''} style="width:auto"/>
-              Vídeo já tem legenda PT queimada (usar <code style="font-family:var(--mono);font-size:12px">${t.slug}.pt.mp4</code> para PT)
+              Vídeo já tem legenda PT queimada (usa <code style="font-family:var(--mono);font-size:12px">${t.slug}.pt.mp4</code> para PT)
             </label>
             ${LANGS.map((l) => {
               const lt = (t.i18n && t.i18n[l]) || { title: '', desc: '', badge: '' };
@@ -252,7 +249,7 @@
       item.querySelector('[data-action="delete"]').addEventListener('click', (e) => {
         e.stopPropagation();
         const slug = state.data.tutorials[idx].slug;
-        if (!confirm(`Excluir tutorial "${slug}"? O vídeo e legendas continuam no repositório (você pode removê-los manualmente depois). Confirmar?`)) return;
+        if (!confirm(`Excluir tutorial "${slug}"? O vídeo e legendas continuam no repositório (remova manualmente depois se quiser). Confirmar?`)) return;
         state.data.tutorials.splice(idx, 1);
         markDirty(); renderTutorials();
       });
@@ -329,8 +326,55 @@
 
   // ---------- SUPPORT TAB ----------
   function renderSupport() {
-    document.getElementById('supportWhatsapp').value = state.data.support?.whatsapp || '';
-    document.getElementById('supportDisplay').value = state.data.support?.display || '';
+    state.data.support = state.data.support || {};
+    state.data.support.cities = state.data.support.cities || [];
+    const wrap = document.getElementById('supportCitiesList');
+    const cities = state.data.support.cities;
+    if (!cities.length) {
+      wrap.innerHTML = '<p class="admin-help">Nenhuma cidade. Clique em "+ Nova cidade".</p>';
+      return;
+    }
+    wrap.innerHTML = cities.map((c, i) => `
+      <div class="faq-edit-item" data-idx="${i}">
+        <div class="form-grid">
+          <label><span>Cidade</span><input type="text" data-field="name" value="${(c.name||'').replace(/"/g,'&quot;')}"/></label>
+          <label><span>Texto exibido</span><input type="text" data-field="display" value="${(c.display||'').replace(/"/g,'&quot;')}" placeholder="(21) 92018-3420"/></label>
+          <label style="grid-column:1/-1"><span>WhatsApp (só dígitos, com DDI — ex. 5521920183420)</span><input type="text" data-field="whatsapp" value="${(c.whatsapp||'').replace(/"/g,'&quot;')}" placeholder="5521920183420"/></label>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn btn-ghost btn-sm" data-action="up">↑</button>
+          <button class="btn btn-ghost btn-sm" data-action="down">↓</button>
+          <button class="btn btn-danger btn-sm" data-action="delete">Excluir</button>
+        </div>
+      </div>
+    `).join('');
+
+    wrap.querySelectorAll('.faq-edit-item').forEach((item) => {
+      const idx = +item.dataset.idx;
+      item.querySelectorAll('[data-field]').forEach((el) => {
+        el.addEventListener('input', () => {
+          cities[idx][el.dataset.field] = el.value.trim();
+          markDirty();
+        });
+      });
+      item.querySelector('[data-action="up"]').addEventListener('click', () => {
+        if (idx > 0) { [cities[idx-1], cities[idx]] = [cities[idx], cities[idx-1]]; markDirty(); renderSupport(); }
+      });
+      item.querySelector('[data-action="down"]').addEventListener('click', () => {
+        if (idx < cities.length-1) { [cities[idx+1], cities[idx]] = [cities[idx], cities[idx+1]]; markDirty(); renderSupport(); }
+      });
+      item.querySelector('[data-action="delete"]').addEventListener('click', () => {
+        cities.splice(idx, 1); markDirty(); renderSupport();
+      });
+    });
+  }
+
+  function addCity() {
+    state.data.support = state.data.support || {};
+    state.data.support.cities = state.data.support.cities || [];
+    state.data.support.cities.push({ name: 'Nova cidade', whatsapp: '', display: '' });
+    markDirty();
+    renderSupport();
   }
 
   // ---------- TABS ----------
@@ -341,20 +385,20 @@
 
   // ---------- LOAD / SAVE ----------
   async function loadAll() {
-    const f = await getFile(CONTENT_PATH);
-    state.sha = f.sha;
-    state.data = JSON.parse(decodeContent(f.content));
+    const r = await apiCall('GET', '/content');
+    state.sha = r.sha;
+    state.data = JSON.parse(decodeUtf8B64(r.content));
   }
 
   async function saveAll() {
     if (!state.dirty) { toast('Nada para salvar'); return; }
     document.getElementById('saveBtn').disabled = true;
     try {
-      const json = JSON.stringify(state.data, null, 2);
-      const res = await putFile(CONTENT_PATH, json, state.sha, 'admin: update content');
-      state.sha = res.content.sha;
+      const jsonStr = JSON.stringify(state.data, null, 2);
+      const r = await apiCall('PUT', '/content', { sha: state.sha, content: encodeUtf8B64(jsonStr) });
+      state.sha = r.sha;
       markSaved();
-      toast('Salvo no GitHub — site atualiza em ~1 min');
+      toast('Salvo — site atualiza em ~1 min');
     } catch (e) {
       toast(e.message, 'err');
     } finally {
@@ -399,11 +443,10 @@
     try {
       msg.textContent = 'Lendo arquivo…';
       const ab = await file.arrayBuffer();
-      msg.textContent = 'Enviando ao GitHub…';
+      msg.textContent = 'Enviando…';
       const b64 = abToBase64(ab);
-      await putFile(`docs/videos/${slug}.mp4`, b64, undefined, `admin: upload ${slug}.mp4`);
+      await apiCall('POST', '/upload', { path: `docs/videos/${slug}.mp4`, content: b64 });
 
-      // adicionar entry no content.json (sem salvar ainda)
       state.data.tutorials = state.data.tutorials || [];
       state.data.tutorials.push({
         slug,
@@ -427,22 +470,40 @@
     }
   }
 
+  // ---------- AUTH ----------
+  async function login(user, pass) {
+    const r = await apiCall('POST', '/login', { user, pass });
+    saveSession(r.token, r.user);
+    return r.user;
+  }
+
+  function logout() {
+    clearSession();
+    location.reload();
+  }
+
   // ---------- INIT ----------
   function bindStaticEvents() {
     document.getElementById('logoutBtn').addEventListener('click', logout);
     document.getElementById('loginBtn').addEventListener('click', async () => {
-      const tok = document.getElementById('tokenInput').value.trim();
+      const u = document.getElementById('userInput').value.trim();
+      const p = document.getElementById('passInput').value;
       const lm = document.getElementById('loginMsg');
-      lm.className = 'admin-msg'; lm.textContent = 'Validando…';
+      lm.className = 'admin-msg'; lm.textContent = 'Entrando…';
       try {
-        const me = await tryLogin(tok);
+        await login(u, p);
         lm.className = 'admin-msg ok'; lm.textContent = 'OK!';
-        setStatus(true, me.full_name);
+        setStatus(true, state.user);
         await bootApp();
       } catch (e) {
         lm.className = 'admin-msg err'; lm.textContent = e.message;
       }
     });
+    // Enter no campo de senha = submit
+    document.getElementById('passInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+
     document.querySelectorAll('.admin-tabs .tab').forEach((b) => {
       b.addEventListener('click', () => setTab(b.dataset.tab));
     });
@@ -454,14 +515,7 @@
     });
     document.getElementById('uploadConfirm').addEventListener('click', doUpload);
 
-    ['supportWhatsapp', 'supportDisplay'].forEach((id) => {
-      document.getElementById(id).addEventListener('input', (e) => {
-        state.data.support = state.data.support || {};
-        const k = id === 'supportWhatsapp' ? 'whatsapp' : 'display';
-        state.data.support[k] = e.target.value;
-        markDirty();
-      });
-    });
+    document.getElementById('addCityBtn').addEventListener('click', addCity);
 
     window.addEventListener('beforeunload', (e) => {
       if (state.dirty) { e.preventDefault(); e.returnValue = ''; }
@@ -484,16 +538,34 @@
     }
   }
 
-  // boot
-  bindStaticEvents();
-  if (state.token) {
-    tryLogin(state.token).then(async (me) => {
-      setStatus(true, me.full_name);
-      await bootApp();
-    }).catch(() => {
-      setStatus(false);
-      localStorage.removeItem(TOKEN_KEY);
-      state.token = '';
-    });
+  async function loadConfig() {
+    try {
+      const r = await fetch(`data/admin-config.json?cb=${Date.now()}`);
+      const c = await r.json();
+      state.api = c.api || '';
+    } catch {}
   }
+
+  // boot
+  (async () => {
+    await loadConfig();
+    bindStaticEvents();
+    if (!state.api) {
+      document.getElementById('loginMsg').className = 'admin-msg err';
+      document.getElementById('loginMsg').textContent = 'Worker ainda não configurado. Defina a URL em data/admin-config.json.';
+      document.getElementById('loginBtn').disabled = true;
+      return;
+    }
+    const s = loadSession();
+    if (s) {
+      try {
+        const me = await apiCall('GET', '/me');
+        setStatus(true, me.user);
+        await bootApp();
+      } catch {
+        clearSession();
+        setStatus(false);
+      }
+    }
+  })();
 })();

@@ -29,17 +29,13 @@
   <main class="admin-main">
     <div class="container">
       <!-- LOGIN -->
-      <section id="loginPanel" class="admin-card">
-        <h1 class="admin-title">Login</h1>
-        <p class="admin-help">
-          Cole abaixo um <b>Personal Access Token (Classic)</b> do GitHub com permissão
-          <code>repo</code> da conta <code>agf3xdev</code>. O token fica salvo apenas
-          no seu navegador.
-          <a href="https://github.com/settings/tokens/new?scopes=repo&description=Ingoo%20Tutoriais%20Admin" target="_blank" rel="noopener">Criar token →</a>
-        </p>
-        <div class="form-row">
-          <input type="password" id="tokenInput" placeholder="ghp_..." autocomplete="off" />
-          <button class="btn btn-primary" id="loginBtn">Entrar</button>
+      <section id="loginPanel" class="admin-card login-card">
+        <h1 class="admin-title">Entrar</h1>
+        <p class="admin-help">Acesse com seu usuário e senha de administrador.</p>
+        <div class="form-stack" style="max-width:360px">
+          <label><span>Usuário</span><input type="text" id="userInput" autocomplete="username" autofocus /></label>
+          <label><span>Senha</span><input type="password" id="passInput" autocomplete="current-password" /></label>
+          <button class="btn btn-primary" id="loginBtn" style="margin-top:4px">Entrar</button>
         </div>
         <p id="loginMsg" class="admin-msg"></p>
       </section>
@@ -86,17 +82,12 @@
         <!-- SUPPORT -->
         <div class="tab-panel" data-panel="support" style="display:none">
           <div class="admin-card">
-            <h2 class="admin-title">WhatsApp de suporte</h2>
-            <div class="form-grid">
-              <label>
-                <span>Número (apenas dígitos, com DDI)</span>
-                <input type="text" id="supportWhatsapp" placeholder="5521920183420" />
-              </label>
-              <label>
-                <span>Exibição no botão</span>
-                <input type="text" id="supportDisplay" placeholder="(21) 92018-3420" />
-              </label>
+            <div class="card-head">
+              <h2 class="admin-title">Cidades de suporte</h2>
+              <button class="btn btn-primary" id="addCityBtn">+ Nova cidade</button>
             </div>
+            <p class="admin-help">Cada cidade aparece no popover do botão verde de WhatsApp. O usuário clica e cai direto no suporte regional.</p>
+            <div id="supportCitiesList"></div>
           </div>
         </div>
 

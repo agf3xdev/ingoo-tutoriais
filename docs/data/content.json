@@ -1,57 +1,152 @@
 {
   "support": {
-    "whatsapp": "5521920183420",
-    "display": "(21) 92018-3420"
+    "cities": [
+      {
+        "name": "Rio de Janeiro",
+        "whatsapp": "5521920118688",
+        "display": "(21) 92011-8688"
+      },
+      {
+        "name": "São Paulo",
+        "whatsapp": "5511942731507",
+        "display": "(11) 94273-1507"
+      },
+      {
+        "name": "Belo Horizonte",
+        "whatsapp": "5531988337559",
+        "display": "(31) 98833-7559"
+      }
+    ]
   },
   "tutorials": [
     {
       "slug": "maquina-online-offline",
       "burnedSubs": true,
       "i18n": {
-        "pt": { "title": "Como identificar máquina online ou offline", "desc": "Aprenda a checar rapidamente se sua máquina Ingoo está conectada e pronta para alugar.", "badge": "Básico" },
-        "en": { "title": "How to tell if the station is online or offline", "desc": "Quickly check whether your Ingoo station is connected and ready to rent power banks.", "badge": "Basics" },
-        "es": { "title": "Cómo saber si la estación está online u offline", "desc": "Verifica rápidamente si tu estación Ingoo está conectada y lista para alquilar.", "badge": "Básico" },
-        "zh": { "title": "如何识别机器在线或离线", "desc": "快速查看您的 Ingoo 机器是否已连接并准备好出租。", "badge": "基础" }
+        "pt": {
+          "title": "Como identificar máquina online ou offline",
+          "desc": "Aprenda a checar rapidamente se sua máquina Ingoo está conectada e pronta para alugar.",
+          "badge": "Básico"
+        },
+        "en": {
+          "title": "How to tell if the station is online or offline",
+          "desc": "Quickly check whether your Ingoo station is connected and ready to rent power banks.",
+          "badge": "Basics"
+        },
+        "es": {
+          "title": "Cómo saber si la estación está online u offline",
+          "desc": "Verifica rápidamente si tu estación Ingoo está conectada y lista para alquilar.",
+          "badge": "Básico"
+        },
+        "zh": {
+          "title": "如何识别机器在线或离线",
+          "desc": "快速查看您的 Ingoo 机器是否已连接并准备好出租。",
+          "badge": "基础"
+        }
       }
     },
     {
       "slug": "conectar-wifi",
       "burnedSubs": true,
       "i18n": {
-        "pt": { "title": "Como conectar a máquina ao Wi-Fi", "desc": "Passo a passo para conectar sua máquina à rede Wi-Fi do estabelecimento.", "badge": "Configuração" },
-        "en": { "title": "How to connect the station to Wi-Fi", "desc": "Step-by-step to connect your station to the venue's Wi-Fi network.", "badge": "Setup" },
-        "es": { "title": "Cómo conectar la estación al Wi-Fi", "desc": "Paso a paso para conectar tu estación a la red Wi-Fi del local.", "badge": "Configuración" },
-        "zh": { "title": "如何将机器连接到 Wi-Fi", "desc": "将机器连接到场所 Wi-Fi 网络的分步指南。", "badge": "设置" }
+        "pt": {
+          "title": "Como conectar a máquina ao Wi-Fi",
+          "desc": "Passo a passo para conectar sua máquina à rede Wi-Fi do estabelecimento.",
+          "badge": "Configuração"
+        },
+        "en": {
+          "title": "How to connect the station to Wi-Fi",
+          "desc": "Step-by-step to connect your station to the venue's Wi-Fi network.",
+          "badge": "Setup"
+        },
+        "es": {
+          "title": "Cómo conectar la estación al Wi-Fi",
+          "desc": "Paso a paso para conectar tu estación a la red Wi-Fi del local.",
+          "badge": "Configuración"
+        },
+        "zh": {
+          "title": "如何将机器连接到 Wi-Fi",
+          "desc": "将机器连接到场所 Wi-Fi 网络的分步指南。",
+          "badge": "设置"
+        }
       }
     },
     {
       "slug": "aluguel-cartao",
       "burnedSubs": true,
       "i18n": {
-        "pt": { "title": "Aluguel pelo cartão de crédito", "desc": "Como o cliente faz a retirada da power bank pagando com cartão de crédito.", "badge": "Pagamentos" },
-        "en": { "title": "Renting with a credit card", "desc": "How customers rent a power bank by paying with a credit card.", "badge": "Payments" },
-        "es": { "title": "Alquiler con tarjeta de crédito", "desc": "Cómo el cliente retira el power bank pagando con tarjeta de crédito.", "badge": "Pagos" },
-        "zh": { "title": "使用信用卡租借", "desc": "客户如何通过信用卡支付来租借充电宝。", "badge": "支付" }
+        "pt": {
+          "title": "Aluguel pelo cartão de crédito",
+          "desc": "Como o cliente faz a retirada da power bank pagando com cartão de crédito.",
+          "badge": "Pagamentos"
+        },
+        "en": {
+          "title": "Renting with a credit card",
+          "desc": "How customers rent a power bank by paying with a credit card.",
+          "badge": "Payments"
+        },
+        "es": {
+          "title": "Alquiler con tarjeta de crédito",
+          "desc": "Cómo el cliente retira el power bank pagando con tarjeta de crédito.",
+          "badge": "Pagos"
+        },
+        "zh": {
+          "title": "使用信用卡租借",
+          "desc": "客户如何通过信用卡支付来租借充电宝。",
+          "badge": "支付"
+        }
       }
     },
     {
       "slug": "retirada-pix",
       "burnedSubs": true,
       "i18n": {
-        "pt": { "title": "Retirada e devolução via PIX", "desc": "Fluxo completo de retirada e devolução de power bank usando pagamento via PIX.", "badge": "Pagamentos" },
-        "en": { "title": "Pickup and return via PIX", "desc": "Full flow for renting and returning a power bank using PIX (Brazilian instant payment).", "badge": "Payments" },
-        "es": { "title": "Retiro y devolución vía PIX", "desc": "Flujo completo de retiro y devolución del power bank usando pago con PIX.", "badge": "Pagos" },
-        "zh": { "title": "通过 PIX 取借与归还", "desc": "使用 PIX（巴西即时支付）租借和归还充电宝的完整流程。", "badge": "支付" }
+        "pt": {
+          "title": "Retirada e devolução via PIX",
+          "desc": "Fluxo completo de retirada e devolução de power bank usando pagamento via PIX.",
+          "badge": "Pagamentos"
+        },
+        "en": {
+          "title": "Pickup and return via PIX",
+          "desc": "Full flow for renting and returning a power bank using PIX (Brazilian instant payment).",
+          "badge": "Payments"
+        },
+        "es": {
+          "title": "Retiro y devolución vía PIX",
+          "desc": "Flujo completo de retiro y devolución del power bank usando pago con PIX.",
+          "badge": "Pagos"
+        },
+        "zh": {
+          "title": "通过 PIX 取借与归还",
+          "desc": "使用 PIX（巴西即时支付）租借和归还充电宝的完整流程。",
+          "badge": "支付"
+        }
       }
     },
     {
       "slug": "saque-comerciante",
       "burnedSubs": false,
       "i18n": {
-        "pt": { "title": "Sistema de saque do comerciante", "desc": "Tour completo pelo perfil de comerciante: saque, histórico, dispositivos, feedback e mais.", "badge": "Sistema" },
-        "en": { "title": "Merchant withdrawal system", "desc": "Full tour of the merchant profile: withdrawals, history, devices, feedback and more.", "badge": "System" },
-        "es": { "title": "Sistema de retiro del comerciante", "desc": "Recorrido completo por el perfil de comerciante: retiro, historial, dispositivos, feedback y más.", "badge": "Sistema" },
-        "zh": { "title": "商户提现系统", "desc": "完整介绍商户界面：提现、历史记录、设备、反馈等功能。", "badge": "系统" }
+        "pt": {
+          "title": "Sistema de saque do comerciante",
+          "desc": "Tour completo pelo perfil de comerciante: saque, histórico, dispositivos, feedback e mais.",
+          "badge": "Sistema"
+        },
+        "en": {
+          "title": "Merchant withdrawal system",
+          "desc": "Full tour of the merchant profile: withdrawals, history, devices, feedback and more.",
+          "badge": "System"
+        },
+        "es": {
+          "title": "Sistema de retiro del comerciante",
+          "desc": "Recorrido completo por el perfil de comerciante: retiro, historial, dispositivos, feedback y más.",
+          "badge": "Sistema"
+        },
+        "zh": {
+          "title": "商户提现系统",
+          "desc": "完整介绍商户界面：提现、历史记录、设备、反馈等功能。",
+          "badge": "系统"
+        }
       }
     }
   ],
@@ -71,11 +166,21 @@
       "faq_eyebrow": "Dúvidas comuns",
       "faq_title": "Perguntas frequentes",
       "faq": [
-        { "q": "Quando posso solicitar saque?", "a": "A solicitação de saque está disponível apenas entre os dias 15 e 17 de cada mês, dentro do app de comerciante." },
-        { "q": "Minha máquina está com a luz amarela. O que fazer?", "a": "Luz amarela indica que a máquina está offline. Tente reiniciar a máquina e verificar a conexão Wi-Fi. Veja o tutorial \"Como identificar máquina online ou offline\"." },
-        { "q": "Como falo com o suporte?", "a": "Pelo WhatsApp (21) 92018-3420 ou pelo botão verde flutuante na página." }
+        {
+          "q": "Quando posso solicitar saque?",
+          "a": "A solicitação de saque está disponível apenas entre os dias 15 e 17 de cada mês, dentro do app de comerciante."
+        },
+        {
+          "q": "Minha máquina está com a luz amarela. O que fazer?",
+          "a": "Luz amarela indica que a máquina está offline. Tente reiniciar a máquina e verificar a conexão Wi-Fi. Veja o tutorial \"Como identificar máquina online ou offline\"."
+        },
+        {
+          "q": "Como falo com o suporte?",
+          "a": "Pelo botão verde flutuante de suporte: escolha a sua cidade (Rio, São Paulo ou Belo Horizonte) e o WhatsApp do suporte regional abre direto."
+        }
       ],
-      "footer_made": "Feito para os comerciantes Ingoo"
+      "footer_made": "Feito para os comerciantes Ingoo",
+      "support_choose_city": "Escolha sua cidade"
     },
     "en": {
       "htmlLang": "en",
@@ -92,11 +197,21 @@
       "faq_eyebrow": "Common questions",
       "faq_title": "Frequently asked questions",
       "faq": [
-        { "q": "When can I request a withdrawal?", "a": "Withdrawal requests are only available between the 15th and 17th of each month, inside the merchant app." },
-        { "q": "My station shows a yellow light. What should I do?", "a": "Yellow light means the station is offline. Try restarting the station and checking the Wi-Fi connection. See the \"How to tell if the station is online or offline\" tutorial." },
-        { "q": "How do I contact support?", "a": "Via WhatsApp (21) 92018-3420 or the green floating button on the page." }
+        {
+          "q": "When can I request a withdrawal?",
+          "a": "Withdrawal requests are only available between the 15th and 17th of each month, inside the merchant app."
+        },
+        {
+          "q": "My station shows a yellow light. What should I do?",
+          "a": "Yellow light means the station is offline. Try restarting the station and checking the Wi-Fi connection. See the \"How to tell if the station is online or offline\" tutorial."
+        },
+        {
+          "q": "How do I contact support?",
+          "a": "Use the green floating support button: pick your city (Rio, São Paulo or Belo Horizonte) and the regional support WhatsApp opens directly."
+        }
       ],
-      "footer_made": "Made for Ingoo merchants"
+      "footer_made": "Made for Ingoo merchants",
+      "support_choose_city": "Choose your city"
     },
     "es": {
       "htmlLang": "es",
@@ -113,11 +228,21 @@
       "faq_eyebrow": "Dudas comunes",
       "faq_title": "Preguntas frecuentes",
       "faq": [
-        { "q": "¿Cuándo puedo solicitar un retiro?", "a": "La solicitud de retiro solo está disponible entre los días 15 y 17 de cada mes, dentro del app del comerciante." },
-        { "q": "Mi estación muestra luz amarilla. ¿Qué hago?", "a": "La luz amarilla indica que la estación está fuera de línea. Intenta reiniciarla y verifica la conexión Wi-Fi. Mira el tutorial \"Cómo saber si la estación está online u offline\"." },
-        { "q": "¿Cómo contacto al soporte?", "a": "Por WhatsApp (21) 92018-3420 o por el botón verde flotante de la página." }
+        {
+          "q": "¿Cuándo puedo solicitar un retiro?",
+          "a": "La solicitud de retiro solo está disponible entre los días 15 y 17 de cada mes, dentro del app del comerciante."
+        },
+        {
+          "q": "Mi estación muestra luz amarilla. ¿Qué hago?",
+          "a": "La luz amarilla indica que la estación está fuera de línea. Intenta reiniciarla y verifica la conexión Wi-Fi. Mira el tutorial \"Cómo saber si la estación está online u offline\"."
+        },
+        {
+          "q": "¿Cómo contacto al soporte?",
+          "a": "Por el botón verde flotante de soporte: elige tu ciudad (Río, São Paulo o Belo Horizonte) y se abre el WhatsApp del soporte regional."
+        }
       ],
-      "footer_made": "Hecho para los comerciantes Ingoo"
+      "footer_made": "Hecho para los comerciantes Ingoo",
+      "support_choose_city": "Elige tu ciudad"
     },
     "zh": {
       "htmlLang": "zh-CN",
@@ -134,11 +259,21 @@
       "faq_eyebrow": "常见疑问",
       "faq_title": "常见问题",
       "faq": [
-        { "q": "什么时候可以申请提现？", "a": "提现申请仅在每月 15 日至 17 日之间可用，需在商户 APP 内完成。" },
-        { "q": "我的机器显示黄灯，怎么办？", "a": "黄灯表示机器离线。请尝试重启机器并检查 Wi-Fi 连接。可观看教程《如何识别机器在线或离线》。" },
-        { "q": "如何联系客服？", "a": "通过 WhatsApp (21) 92018-3420 或页面右下角的绿色悬浮按钮。" }
+        {
+          "q": "什么时候可以申请提现？",
+          "a": "提现申请仅在每月 15 日至 17 日之间可用，需在商户 APP 内完成。"
+        },
+        {
+          "q": "我的机器显示黄灯，怎么办？",
+          "a": "黄灯表示机器离线。请尝试重启机器并检查 Wi-Fi 连接。可观看教程《如何识别机器在线或离线》。"
+        },
+        {
+          "q": "如何联系客服？",
+          "a": "点击页面右下角的绿色悬浮按钮，选择您所在的城市（里约、圣保罗或贝洛奥里藏特），即可通过 WhatsApp 联系当地客服。"
+        }
       ],
-      "footer_made": "为 Ingoo 商户精心打造"
+      "footer_made": "为 Ingoo 商户精心打造",
+      "support_choose_city": "选择您的城市"
     }
   }
 }
