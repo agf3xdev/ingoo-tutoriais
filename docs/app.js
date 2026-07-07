@@ -67,6 +67,19 @@
     });
   }
 
+  // Enquadramento vertical do preview por video (os videos sao 9:16; o card e wide,
+  // entao alinhamos a faixa visivel para o rosto de quem apresenta).
+  const PREVIEW_FOCUS = {
+    'maquina-online-offline': 'center 8%',
+    'conectar-wifi': 'center 22%',
+    'aluguel-cartao': 'center 15%',
+    'retirada-pix': 'center 15%',
+    'saque-comerciante': 'center 0%',
+  };
+  function previewFocus(slug) {
+    return PREVIEW_FOCUS[slug] || 'center 15%';
+  }
+
   function renderTutorials() {
     const t = state.data.site[state.lang];
     const tutorials = state.data.tutorials || [];
@@ -79,7 +92,7 @@
         return `
         <button class="card" data-slug="${tut.slug}" type="button" aria-label="${meta.title || ''}">
           <div class="card-thumb">
-            ${thumbSvg(tut.slug, i)}
+            <video class="bg" src="videos/${tut.slug}.mp4#t=3" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true" style="object-position:${previewFocus(tut.slug)}"></video>
             <span class="badge">${meta.badge || ''}</span>
             <span class="card-index">${num} <em>/${total}</em></span>
             <span class="play"><span></span></span>
@@ -95,6 +108,17 @@
 
     grid.querySelectorAll('.card').forEach((card) => {
       card.addEventListener('click', () => openVideo(card.dataset.slug));
+      const preview = card.querySelector('video.bg');
+      if (preview) {
+        card.addEventListener('mouseenter', () => {
+          preview.currentTime = 0;
+          preview.play().catch(() => {});
+        });
+        card.addEventListener('mouseleave', () => {
+          preview.pause();
+          try { preview.currentTime = 1.5; } catch (e) {}
+        });
+      }
     });
   }
 
